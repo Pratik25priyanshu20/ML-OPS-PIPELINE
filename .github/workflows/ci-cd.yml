@@ -1,0 +1,77 @@
+name: CI & Docker Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  REGISTRY: docker.io
+  IMAGE_NAME: pratikpriyanshu/bank-marketing-api
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  # 1) Run tests
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          elif [ -f pyproject.toml ]; then
+            # adjust this if you use a different install command
+            pip install .[dev] || pip install .
+          fi
+
+      - name: Run tests (if tests/ exists)
+        run: |
+          if [ -d tests ]; then
+            pytest -q
+          else
+            echo "No tests directory found, skipping tests."
+          fi
+
+  # 2) Build & push Docker image to Docker Hub
+  build-and-push:
+    needs: test        # only run if tests job passes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract short SHA
+        id: vars
+        run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          # If your Dockerfile name is different, change this path
+          file: ./Dockerfile.api
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.SHORT_SHA }}

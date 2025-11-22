@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/futurediary/Desktop/vs-Stack/Projects/ML-OPs-Pipeline/mlruns/354308710615888615/b108d36ca30c4e008b18195a90d137bd/artifacts
+end_time: 1763556168755
+entry_point_name: ''
+experiment_id: '354308710615888615'
+lifecycle_stage: active
+run_id: b108d36ca30c4e008b18195a90d137bd
+run_name: logistic_regression
+run_uuid: b108d36ca30c4e008b18195a90d137bd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763556166599
+status: 3
+tags: []
+user_id: futurediary

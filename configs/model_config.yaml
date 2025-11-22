@@ -1,0 +1,39 @@
+# ============================================================
+# ⚙ MODEL & TRAINING CONFIGURATION
+# ============================================================
+
+
+experiment:
+  name: "bank_marketing_churn_experiment"
+  tracking_uri: "file:mlruns"   # local MLflow folder in project root
+
+training:
+  metric: "roc_auc"
+  n_splits: 3
+  random_state: 42
+  test_size: 0.2
+
+
+models:
+  logistic_regression:
+    enabled: true
+    optuna:
+      n_trials: 20
+
+
+  random_forest:
+    enabled: true
+    optuna:
+      n_trials: 20
+
+
+  xgboost:
+    enabled: true
+    optuna:
+      n_trials: 25
+
+
+  lightgbm:
+    enabled: true
+    optuna:
+      n_trials: 25

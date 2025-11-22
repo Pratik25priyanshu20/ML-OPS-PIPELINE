@@ -1,0 +1,10 @@
+groups:
+  - name: api-alerts
+    rules:
+      - alert: HighErrorRate
+        expr: rate(prediction_errors_total[5m]) > 5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          description: Error rate is too high.

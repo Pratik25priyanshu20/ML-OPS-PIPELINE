@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/futurediary/Desktop/vs-Stack/Projects/ML-OPs-Pipeline/mlruns/354308710615888615/bfcfae9e42e64575ba553ca6733363d8/artifacts
+end_time: 1763556201193
+entry_point_name: ''
+experiment_id: '354308710615888615'
+lifecycle_stage: active
+run_id: bfcfae9e42e64575ba553ca6733363d8
+run_name: xgboost
+run_uuid: bfcfae9e42e64575ba553ca6733363d8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763556199043
+status: 3
+tags: []
+user_id: futurediary

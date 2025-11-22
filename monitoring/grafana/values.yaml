@@ -1,0 +1,40 @@
+grafana:
+  enabled: true
+
+  # ----------------------------------------
+  # SIDE CAR (loads dashboards from ConfigMaps)
+  # ----------------------------------------
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      folder: "Bank Marketing API"
+      folderAnnotation: "grafana_folder"
+
+  # ----------------------------------------
+  # PROVISION DASHBOARD PROVIDERS
+  # ----------------------------------------
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+        - name: "BankMarketingAPI"
+          orgId: 1
+          folder: "Bank Marketing API"
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards
+
+  # ----------------------------------------
+  # MOUNT DASHBOARDS INTO CONTAINER
+  # ----------------------------------------
+  extraVolumeMounts:
+    - name: dashboards
+      mountPath: /var/lib/grafana/dashboards
+
+  extraVolumes:
+    - name: dashboards
+      configMap:
+        name: bank-marketing-api-dashboards

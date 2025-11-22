@@ -1,0 +1,6 @@
+best_score: 0.9556951389216474
+data:
+  target_column: y
+model_name: lightgbm
+primary_metric: roc_auc
+saved_at: '2025-11-19T12:44:31.558173'

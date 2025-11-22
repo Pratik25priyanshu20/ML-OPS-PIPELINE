@@ -1,0 +1,63 @@
+# ============================================================
+# 📌 DATA CONFIGURATION — BANK MARKETING (UCI)
+# Used by ingestion, validation, preprocessing, training
+# ============================================================
+
+raw_data:
+  path: "data/raw/bank-additional-full.csv"
+
+processed_data:
+  clean_raw_path: "data/processed/bank_raw_clean.csv"
+  processed_path: "data/processed/"
+  features_path: "data/features/"
+
+data:
+  target_column: "y"
+  test_size: 0.2
+  validation_size: 0.1
+  random_state: 42
+  stratify: true
+
+  categorical_features:
+    - job
+    - marital
+    - education
+    - default
+    - housing
+    - loan
+    - contact
+    - month
+    - day_of_week
+    - poutcome
+
+  numerical_features:
+    - age
+    - duration
+    - campaign
+    - pdays
+    - previous
+    - emp.var.rate
+    - cons.price.idx
+    - cons.conf.idx
+    - euribor3m
+    - nr.employed
+
+  preprocessing:
+    handle_missing: "drop"
+    encoding_method: "one_hot"
+    scaling_method: "standard"
+    outlier_method: "iqr"
+    outlier_threshold: 1.5
+
+  target_mapping:
+    "no": 0
+    "yes": 1
+
+  feature_engineering:          
+    enabled: true
+    create_interactions: true
+    date_features: true
+    statistical_features: true
+    binned_features: false
+
+drop_columns: []

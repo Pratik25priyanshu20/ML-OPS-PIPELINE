@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bank-marketing-api
+  namespace: mlops-production
+  labels:
+    app: bank-marketing-api
+    release: monitoring     # <-- REQUIRED so ServiceMonitor discovers it
+spec:
+  selector:
+    app: bank-marketing-api
+  ports:
+    - name: http            # <-- REQUIRED name for Prometheus scraping
+      port: 80              # <-- service port inside cluster (standard)
+      targetPort: 8000      # <-- your FastAPI container port
+      protocol: TCP
+  type: ClusterIP

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bank-marketing-api-config
+  namespace: mlops-production
+data:
+  APP_ENV: "production"
+  LOG_LEVEL: "info"
+  MODEL_PATH: "/app/models/best_model.pkl"
+  FEATURES_DIR: "/app/data/features"
+  UVICORN_HOST: "0.0.0.0"
+  UVICORN_PORT: "8000"

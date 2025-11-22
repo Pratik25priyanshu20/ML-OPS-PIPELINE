@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/futurediary/Desktop/vs-Stack/Projects/ML-OPs-Pipeline/mlruns/354308710615888615/e069fe5f4fde4a7bba6a75f242b88b0f/artifacts
+end_time: 1763556271548
+entry_point_name: ''
+experiment_id: '354308710615888615'
+lifecycle_stage: active
+run_id: e069fe5f4fde4a7bba6a75f242b88b0f
+run_name: lightgbm
+run_uuid: e069fe5f4fde4a7bba6a75f242b88b0f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1763556266153
+status: 3
+tags: []
+user_id: futurediary

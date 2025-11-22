@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bank-marketing-api
+  namespace: mlops-production
+  labels:
+    app: bank-marketing-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bank-marketing-api
+  template:
+    metadata:
+      labels:
+        app: bank-marketing-api
+    spec:
+      containers:
+        - name: bank-marketing-api
+
+          
+          image: pratikpriyanshu/bank-marketing-api:latest
+          imagePullPolicy: IfNotPresent
+
+          command: ["uvicorn", "src.serve.api:app", "--host", "0.0.0.0", "--port", "8000"]
+
+          ports:
+            - containerPort: 8000
+
+          envFrom:
+            - configMapRef:
+                name: bank-marketing-api-config
+            - secretRef:
+                name: bank-marketing-api-secrets
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

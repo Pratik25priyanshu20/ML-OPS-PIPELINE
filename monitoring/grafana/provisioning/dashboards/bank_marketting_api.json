@@ -1,0 +1,40 @@
+{
+    "id": null,
+    "title": "Bank Marketing API Monitoring",
+    "tags": ["mlops", "bank-marketing", "api"],
+    "timezone": "browser",
+    "schemaVersion": 39,
+    "version": 1,
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Prediction Latency",
+        "targets": [
+          {
+            "expr": "rate(prediction_latency_seconds_bucket[2m])"
+          }
+        ],
+        "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 }
+      },
+      {
+        "type": "stat",
+        "title": "Total Predictions",
+        "targets": [
+          {
+            "expr": "sum(predictions_total)"
+          }
+        ],
+        "gridPos": { "x": 0, "y": 8, "w": 6, "h": 4 }
+      },
+      {
+        "type": "stat",
+        "title": "Predictions by Class",
+        "targets": [
+          {
+            "expr": "sum by (prediction) (predictions_total)"
+          }
+        ],
+        "gridPos": { "x": 6, "y": 8, "w": 6, "h": 4 }
+      }
+    ]
+  }

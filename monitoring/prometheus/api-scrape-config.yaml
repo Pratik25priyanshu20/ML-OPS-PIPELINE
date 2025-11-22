@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: bank-api-servicemonitor
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: bank-marketing-api
+  namespaceSelector:
+    matchNames:
+      - mlops-production
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 5s
